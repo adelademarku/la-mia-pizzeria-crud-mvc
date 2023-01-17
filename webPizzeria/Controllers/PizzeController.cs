@@ -25,15 +25,15 @@ namespace webPizzeria.Controllers
             using (PizzaContext db = new PizzaContext())
             {
                 // LINQ: syntax methos
-                Pizza postTrovato = db.Pizza
-                    .Where(SingoloPostNelDb => SingoloPostNelDb.Id == id)
-                    .Include(post => post.Category)
+                Pizza pizzaTrovato = db.Pizza
+                    .Where(SingoloPizzaNelDb => SingoloPizzaNelDb.Id == id)
+                    .Include(pizza => pizza.Category)
                     .FirstOrDefault();
 
 
-                if (postTrovato != null)
+                if (pizzaTrovato != null)
                 {
-                    return View(postTrovato);
+                    return View(pizzaTrovato);
                 }
 
                 return NotFound("Il post con l'id cercato non esiste!");
@@ -116,7 +116,7 @@ namespace webPizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(PizzaCategoryView formPizza)
+        public IActionResult Update(int id, PizzaCategoryView formPizza)
         {
             if (!ModelState.IsValid)
             {
@@ -161,7 +161,7 @@ namespace webPizzeria.Controllers
         {
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza pizzaToDelete = db.Pizza.Where(post => post.Id == id).FirstOrDefault();
+                Pizza pizzaToDelete = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if (pizzaToDelete != null)
                 {
