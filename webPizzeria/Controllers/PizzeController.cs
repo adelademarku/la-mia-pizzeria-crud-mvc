@@ -91,9 +91,9 @@ namespace webPizzeria.Controllers
         {
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza postToUpdate = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizzaToUpdate = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
 
-                if (postToUpdate == null)
+                if (pizzaToUpdate == null)
                 {
                     return NotFound("La pizza non è stata trovata");
                 }
@@ -101,7 +101,7 @@ namespace webPizzeria.Controllers
                 List<Category> categories = db.Categories.ToList<Category>();
 
                 PizzaCategoryView modelForView = new PizzaCategoryView();
-                modelForView.Pizza = postToUpdate;
+                modelForView.Pizza = pizzaToUpdate;
                 modelForView.Categories = categories;
 
                 return View("Update", modelForView);
@@ -176,5 +176,9 @@ namespace webPizzeria.Controllers
                 }
             }
         }
+
+       
+
+
     }
 }
