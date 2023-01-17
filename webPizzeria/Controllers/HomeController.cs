@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using webPizzeria.Database;
 using webPizzeria.Models;
 
 namespace webPizzeria.Controllers
@@ -15,7 +16,13 @@ namespace webPizzeria.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            using (PizzaContext db = new PizzaContext())
+            {
+                List<Pizza> listaDellePizze = db.Pizza.ToList<Pizza>();
+                return View(listaDellePizze);
+            }
+
+
         }
 
         public IActionResult Privacy()

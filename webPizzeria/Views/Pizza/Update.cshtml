@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+@model Pizza
+
+<div class="container">
+    <form asp-controller="Pizze" asp-action="Update" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label>Id:</label>
+            <input asp-for="Id" type="text" class="form-control" disabled />
+        </div>
+        <div class="mb-3">
+            <label>Nome:</label>
+            <input asp-for="Name" type="text" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Descrizione:</label>
+            <textarea asp-for="Description" rows="10" class="d-block w-100"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Prezzo:</label>
+            <input asp-for="Price" type="text" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label>Top:</label>
+            <input asp-for="Favorites" type="text" class="form-control" />
+            <span asp-validation-for="Favorites" class="text-danger"></span>
+        </div>
+        <div class="mb-3 form-check">
+            <label>Path Immagine:</label>
+            <input asp-for="Image" type="text" class="form-control" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Salva Modifiche alla pizza</button>
+    </form>
+</div>
