@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.SqlServer.Server;
 using webPizzeria.Database;
 using webPizzeria.Models;
 
@@ -24,6 +27,7 @@ namespace webPizzeria.Controllers
                 // LINQ: syntax methos
                 Pizza postTrovato = db.Pizza
                     .Where(SingoloPostNelDb => SingoloPostNelDb.Id == id)
+                    .Include(post => post.Category)
                     .FirstOrDefault();
 
 
@@ -41,21 +45,40 @@ namespace webPizzeria.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View("Create");
+            using (PizzaContext db = new PizzaContext())
+            {
+                List<Category> categoriesFromDb = db.Categories.ToList<Category>();
+
+                PizzaCategoryView modelForView = new PizzaCategoryView();
+                modelForView.Pizza = new Pizza();
+
+                modelForView.Categories = categoriesFromDb;
+
+                return View("Create", modelForView);
+            }
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Pizza formData)
+        public IActionResult Create(PizzaCategoryView formData)
         {
             if (!ModelState.IsValid)
             {
+                using (PizzaContext db = new PizzaContext())
+                {
+                    List<Category> categories = db.Categories.ToList<Category>();
+
+                    formData.Categories = categories;
+                }
+
+
                 return View("Create", formData);
             }
 
             using (PizzaContext db = new PizzaContext())
             {
-                db.Pizza.Add(formData);
+                db.Pizza.Add(formData.Pizza);
                 db.SaveChanges();
             }
 
@@ -75,7 +98,13 @@ namespace webPizzeria.Controllers
                     return NotFound("La pizza non è stata trovata");
                 }
 
-                return View("Update", postToUpdate);
+                List<Category> categories = db.Categories.ToList<Category>();
+
+                PizzaCategoryView modelForView = new PizzaCategoryView();
+                modelForView.Pizza = postToUpdate;
+                modelForView.Categories = categories;
+
+                return View("Update", modelForView);
             }
 
         }
@@ -87,24 +116,32 @@ namespace webPizzeria.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Pizza formPizza)
+        public IActionResult Update(PizzaCategoryView formPizza)
         {
             if (!ModelState.IsValid)
             {
+
+                using (PizzaContext db = new PizzaContext())
+                {
+                    List<Category> categories = db.Categories.ToList<Category>();
+
+                    formPizza.Categories = categories;
+                }
                 return View("Update", formPizza);
             }
 
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza postToUpdate = db.Pizza.Where(articolo => articolo.Id == formPizza.Id).FirstOrDefault();
+                Pizza postToUpdate = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
 
                 if (postToUpdate != null)
                 {
-                    postToUpdate.Name = formPizza.Name;
-                    postToUpdate.Description = formPizza.Description;
-                    postToUpdate.Image = formPizza.Image;
-                    postToUpdate.Price = formPizza.Price;
-                    postToUpdate.Favorites = formPizza.Favorites;
+                    postToUpdate.Name = formPizza.Pizza.Name;
+                    postToUpdate.Description = formPizza.Pizza.Description;
+                    postToUpdate.Image = formPizza.Pizza.Image;
+                    postToUpdate.Price = formPizza.Pizza.Price;
+                    postToUpdate.Favorites = formPizza.Pizza.Favorites;
+                    postToUpdate.CategoryId = formPizza.Pizza.CategoryId;
 
                     db.SaveChanges();
 
