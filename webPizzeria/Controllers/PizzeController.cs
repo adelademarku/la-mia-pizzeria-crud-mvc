@@ -36,7 +36,7 @@ namespace webPizzeria.Controllers
                     return View(pizzaTrovato);
                 }
 
-                return NotFound("Il post con l'id cercato non esiste!");
+                return NotFound("La pizza con l'id cercato non esiste!");
 
             }
 
