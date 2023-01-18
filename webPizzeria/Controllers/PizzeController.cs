@@ -91,7 +91,7 @@ namespace webPizzeria.Controllers
         {
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza pizzaToUpdate = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza pizzaToUpdate = db.Pizza.Where(tipidipizza => tipidipizza.Id == id).FirstOrDefault();
 
                 if (pizzaToUpdate == null)
                 {
@@ -132,7 +132,7 @@ namespace webPizzeria.Controllers
 
             using (PizzaContext db = new PizzaContext())
             {
-                Pizza postToUpdate = db.Pizza.Where(pizza => pizza.Id == id).FirstOrDefault();
+                Pizza postToUpdate = db.Pizza.Where(tipidipizza => tipidipizza.Id == id).FirstOrDefault();
 
                 if (postToUpdate != null)
                 {

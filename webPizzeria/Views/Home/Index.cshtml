@@ -57,7 +57,7 @@
         {
             if (pizza.Favorites == true)
             {
-                <div class="container mt-3 ">
+                <div class="container mt-3  mb-4">
 
                     <div class="row row-cols-1 row-cols-md-3 g-4 mt-4 justify-content-evenly">
 
@@ -70,17 +70,14 @@
                                 <h5 class="card-title">@pizza.Name</h5>
                                 <p class="card-text">@pizza.Description</p>
                                 <p>@pizza.Price</p>
-                                <a class="btn btn-primary" href="@Url.Action("Detail", "Pizze", new { id = @pizza.Id } )" role="button">Dettagli</a>
+                                <a class="btn btn-primary mb-3" href="@Url.Action("Detail", "Pizze", new { id = @pizza.Id } )" role="button">Dettagli</a>
                             </div>
                         </div>
 
                     </div>
                 </div>
             }
-            else
-            {
-                <h3>Al momento non ci sono Pizze preferite Sigh! </h3>
-            }
+           
         }
 
 
