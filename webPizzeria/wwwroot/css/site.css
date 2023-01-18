@@ -15,18 +15,30 @@ html {
 
 body {
   margin-bottom: 60px;
+  height: 100%;
 }
 
-.ilmiocontainer {
-    background-color: #EEDFE8;
-    list-style-type: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+
+
+    
+
+.cover {
+    height: 100%;
+    border: 0px;
+    background-image: url("https://t4.ftcdn.net/jpg/02/19/94/97/240_F_219949741_fYwRBdwSW2ZRn9PLZ6DvDjn1jwRIx8YS.jpg");
+    background-size:auto;
+    background-position: center;
 }
 
-    .ilmiocontainer h1 {
-        display: inline-block;
-        font-size: 20px;
-        padding: 20px;
-    }
+.cover__caption{
+    display:table;
+    height: 400px;
+    width: 100%;
+}
+
+.cover__caption__copy{
+    display:table-cell;
+    vertical-align:middle;
+    text-align:center;
+    color:white;
+}
