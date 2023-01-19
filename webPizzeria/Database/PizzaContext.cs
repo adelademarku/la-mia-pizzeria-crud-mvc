@@ -9,6 +9,7 @@ namespace webPizzeria.Database
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Ingrediente> Ingredienti { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=localhost; Database=PizzeriaWeb;" + "Integrated Security=True;TrustServerCertificate=True");
