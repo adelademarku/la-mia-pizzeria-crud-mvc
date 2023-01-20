@@ -30,7 +30,7 @@ namespace webPizzeria.Models
         public int? CategoryId { get; set; }
         public Category?  Category { get; set; } 
 
-        public List <Ingrediente> Ingredienti { get; set; }    
+        public List <Ingrediente>? Ingredienti { get; set; }    
 
         public Pizza() { }
 

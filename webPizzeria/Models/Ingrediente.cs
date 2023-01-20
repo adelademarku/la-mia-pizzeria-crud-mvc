@@ -5,6 +5,6 @@
         public string Name { get; set; }
 
         public List<Pizza> Pizza { get; set; }
-        public Ingrediente() { }
+        public Ingrediente(){}
     }
 }
